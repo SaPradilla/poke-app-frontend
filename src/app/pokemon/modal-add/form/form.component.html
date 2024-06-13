@@ -1,0 +1,189 @@
+<div *ngIf="confirmModal"
+    class=" inset-0 absolute z-30 bg-black bg-opacity-50 backdrop-blur-sm   h-screen w-full overflow-hidden flex justify-center items-center ">
+    <div class="flex flex-col justify-center items-center  gap-3 h-28 bg-slate-100 w-64 rounded-lg">
+        <h3> Save pokemon? </h3>
+        <div class="flex justify-evenly w-full">
+
+            <button [disabled]="loading" (click)="toggleConfirm()" mat-flat-button color="warn">
+                Cancel
+            </button>
+
+            <button [disabled]="loading" (click)="onSubmit()" mat-flat-button color="primary">
+                <ng-container *ngIf="loading; else elseTemplate">
+                    <mat-spinner diameter="30"></mat-spinner>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    Save
+                </ng-template>
+
+            </button>
+        </div>
+    </div>
+</div>
+
+<form [formGroup]="pokeForm" class=" flex flex-col px-12">
+
+
+    <ng-container *ngIf="!enableFormStats; else elseTemplate">
+
+        <div class="flex flex-col ">
+            <!-- Name -->
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error *ngIf="pokeForm.get('name')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="pokeForm.get('name')?.hasError('minlength')">too short</mat-error>
+            </mat-form-field>
+
+            <!-- pokemon Number -->
+            <mat-form-field appearance="outline">
+                <mat-label>Pokemon Number</mat-label>
+                <input matInput formControlName="pknum" required>
+                <mat-error *ngIf="pokeForm.get('pknum')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="pokeForm.get('pknum')?.hasError('min')">too short</mat-error>
+            </mat-form-field>
+
+            <div class="flex gap-2 ">
+                <!-- Weight -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Weight</mat-label>
+                    <input matInput formControlName="weight" required>
+                    <mat-error *ngIf="pokeForm.get('weight')?.hasError('required')">required</mat-error>
+                    <mat-error *ngIf="pokeForm.get('weight')?.hasError('pattern')">Must be a number</mat-error>
+
+                </mat-form-field>
+                <!-- Height -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Height</mat-label>
+                    <input matInput formControlName="height" required>
+                    <mat-error *ngIf="pokeForm.get('height')?.hasError('required')">required</mat-error>
+                    <mat-error *ngIf="pokeForm.get('height')?.hasError('pattern')">Must be a number</mat-error>
+                  </mat-form-field>
+            </div>
+
+            <!-- Image URL -->
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Image Url</mat-label>
+                <input type="text" matInput formControlName="image_url" [matAutocomplete]="autoImage">
+                <mat-autocomplete #autoImage="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredPokemonsImageList | async" [value]="option.number">
+                        <div class="flex items-center gap-2 justify-between">
+                            <small class=" text-gray-600 font-medium "> #{{ option.number }} </small>
+                            <span> | </span>
+                            <p>{{ option.name }} </p>
+                            <img [src]="'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/' + option.number + '.png'"
+                                class=" h-11">
+                        </div>
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="pokeForm.get('image_url')?.invalid"> required </mat-error>
+            </mat-form-field>
+
+            <!-- Category  -->
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Category</mat-label>
+                <input type="text" matInput formControlName="category" [matAutocomplete]="autoCategory">
+                <mat-autocomplete #autoCategory="matAutocomplete">
+                    <mat-option *ngFor="let optionCategory of filteredCategories | async" [value]="optionCategory">
+                        {{ optionCategory }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="pokeForm.get('category')?.invalid"> required </mat-error>
+            </mat-form-field>
+
+            <!-- Abilities -->
+            <mat-form-field appearance="outline">
+                <mat-label>Abilities</mat-label>
+                <mat-select formControlName="abilities" multiple>
+                    <mat-option *ngFor="let topping of abilities" [value]="topping">{{topping}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Types -->
+            <mat-form-field appearance="outline">
+                <mat-label>Types</mat-label>
+                <mat-select formControlName="types" multiple>
+                    <mat-option *ngFor="let topping of types" [value]="topping">{{
+
+                        topping
+
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+    </ng-container>
+
+    <ng-template #elseTemplate>
+
+        <div class=" flex flex-col  transition-all duration-300 ease-in" formGroupName="stats">
+    
+            <mat-label>HP</mat-label>
+            <mat-slider min="0" max="255" step="10" showTickMarks discrete [displayWith]="formatLabel">
+                <input matSliderThumb formControlName="hp" required>
+            </mat-slider>
+    
+    
+            <mat-label>Attack</mat-label>
+            <mat-slider min="0" max="255" step="10" showTickMarks discrete [displayWith]="formatLabel">
+                <input matSliderThumb formControlName="hp">
+            </mat-slider>
+    
+            <mat-label>Defense</mat-label>
+            <mat-slider min="0" max="255" step="10" showTickMarks discrete [displayWith]="formatLabel">
+                <input matSliderThumb formControlName="defense">
+            </mat-slider>
+    
+            <mat-label>Special Attack</mat-label>
+            <mat-slider min="0" max="255" step="10" showTickMarks discrete [displayWith]="formatLabel">
+                <input matSliderThumb formControlName="sp_attack">
+            </mat-slider>
+    
+            <mat-label>Special Defense</mat-label>
+            <mat-slider min="0" max="255" step="10" showTickMarks discrete [displayWith]="formatLabel">
+                <input matSliderThumb formControlName="sp_defense">
+            </mat-slider>
+    
+            <mat-label>Speed</mat-label>
+            <mat-slider min="0" max="255" step="10" showTickMarks discrete [displayWith]="formatLabel">
+                <input matSliderThumb formControlName="speed">
+            </mat-slider>
+    
+    
+        </div>
+
+    </ng-template>
+
+
+    <div class=" flex justify-center items-center pb-7 gap-4">
+
+        <button *ngIf="completedFirstForm" (click)="toggleModalFormStats()" mat-stroked-button color="">
+            <mat-icon>
+
+                {{
+                enableFormStats
+                ? 'arrow_back_ios'
+                : 'arrow_forward_ios'
+                }}
+
+            </mat-icon>
+
+            {{
+            enableFormStats
+            ? 'Back'
+            : 'Next'
+            }}
+
+        </button>
+
+        <button (click)="toggleConfirm()" *ngIf="enableFormStats" mat-flat-button color="primary">
+            Save
+        </button>
+
+    </div>
+
+
+
+
+
+</form>

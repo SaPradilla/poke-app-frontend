@@ -1,0 +1,11 @@
+<!-- Modals -->
+
+<!-- <app-modal-details/> -->
+<app-modal-add *ngIf="showModal" (close)="closeModal()" />
+
+<app-header (open)="openModal()"/>
+
+<section class=" bg-slate-50">
+    <app-list/>
+</section>
+    

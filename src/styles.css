@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body { height: 100%; }
+body { margin: 0; padding: 0; }
+/* Arregla un bug de estilos de angular material 15 */
+.mat-mdc-form-field .mdc-notched-outline__notch {
+    border-right: 0px !important;
+}

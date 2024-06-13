@@ -1,0 +1,46 @@
+<header class=" bg-gradient-to-t from-stone-50 to-blue-200 ">
+
+    <h1
+        class=" p-11 text-5xl text-center font-bold bg-gradient-to-t from-cyan-700 to-blue-900 bg-clip-text text-transparent">
+        PokeApp
+    </h1>
+
+
+
+    <!-- Acciones -->
+    <div class=" container-btns flex align-center justify-center flex-col pr-4 pl-4">
+
+        <div class=" flex gap-1 justify-center ">
+            <form [formGroup]="filterForm"> 
+                <!-- Buscar  -->
+                <mat-form-field class=" " appearance="outline">
+                    <mat-label>Search pokemon</mat-label>
+                    <input  formControlName="value" matInput>
+                    <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+    
+                <!-- Filtro -->
+                <mat-form-field class="w-24" appearance="outline">
+                    <mat-label>Filter</mat-label>
+                    <mat-select class="text-sm" formControlName="selected" [(value)]="selected">
+    
+                        <mat-option class="text-sm" value="number"> Number </mat-option>
+                        <mat-option class="text-sm" value="name"> Name </mat-option>
+                        <mat-option class="text-sm" value="type"> Type </mat-option>
+    
+                    </mat-select>
+                </mat-form-field>
+            </form>
+
+        </div>
+
+        <!-- Boton de crear pokemon -->
+        <div class=" w-full flex justify-end ">
+            <button (click)="onOpen()" class="h-screen " mat-raised-button color="primary">
+                New
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+
+</header>
