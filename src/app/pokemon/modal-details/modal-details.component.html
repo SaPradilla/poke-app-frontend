@@ -1,1 +1,122 @@
-<p>modal-details works!</p>
+<div
+    class=" bg-black bg-opacity-50 backdrop-blur-sm z-20 fixed h-screen w-screen overflow-hidden flex justify-center items-center">
+
+    <div class=" content_modal flex flex-col gap-3  bg-slate-100 w-80 rounded-lg">
+
+        <div class="flex justify-end pt-2 ">
+            <mat-icon (click)="closeModal()">close</mat-icon>
+        </div>
+        <!-- content pokemon -->
+        <div class=" flex flex-col items-center gap-4">
+            <!-- imagen -->
+            <img class=" h-44 w-44 " [src]="pokemonView?.image_url" alt="imagen_pokemon">
+            <!-- info pokemon -->
+            <div class="flex flex-col justify-start gap-3 w-full">
+                <p class=" text-4xl font-bold ">{{ pokemonView?.name }}</p>
+                <p class=" text-2xl font-medium text-slate-700 "> # {{ pokemonView?.pknum }} </p>
+
+                <div>
+                    <p> Abilities </p>
+                    <mat-chip-set class="grid grid-cols-2">
+                        <mat-chip cdkDrag *ngFor="let ability of pokemonView?.abilities">
+                            {{ability}}
+                        </mat-chip>
+                    </mat-chip-set>
+                </div>
+            </div>
+            <!-- container more info -->
+
+            <div class="flex gap-2 justify-between items-center  w-full">
+
+                <!-- info -->
+                <div class=" bg-slate-200 p-2 rounded-md">
+
+                    <div class="flex flex-col gap-2">
+                        <p class=" font-semibold ">Height</p>
+                        <p> {{ pokemonView?.height }} </p>
+                    </div>
+                    <hr>
+                    <div class="flex flex-col gap-2">
+                        <p class=" font-semibold ">Category</p>
+                        <p> {{ pokemonView?.category }} </p>
+                    </div>
+                    <hr>
+                    <div class="flex flex-col gap-2">
+                        <p class=" font-semibold ">Weight</p>
+                        <p> {{ pokemonView?.category }} lbs </p>
+                    </div>
+                </div>
+
+
+                <!-- stats -->
+
+                <div class="flex flex-col gap-3 ">
+
+                    <h2 class=" text-center  font-semibold "> Stats </h2>
+
+                    <div class="grid grid-cols-2  gap-1 place-content-center w-full">
+                        <!-- HP -->
+                        <div class="mb-1 text-sm font-medium text-blue-700 dark:text-blue-500">HP</div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700 flex items-center">
+                            <div class="text-center text-blue-100 text-[10px] bg-blue-600 h-3 rounded-full" 
+                                [style.width.%]="((pokemonView?.stats?.hp ?? 0) / 250) * 100"
+                            > {{ pokemonView?.stats?.hp }} 
+                        </div>
+                        </div>
+                        <!-- Attack -->
+                        <div class="mb-1 text-sm font-medium text-red-700 dark:text-red-500">Attack</div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700 flex items-center">
+                            <div class="text-center text-blue-100 text-[10px] bg-red-600 h-3 rounded-full dark:bg-red-500"
+                                [style.width.%]="((pokemonView?.stats?.attack ?? 0) / 250) * 100"
+                            >
+                                {{ pokemonView?.stats?.attack }}
+                            </div>
+                        </div>
+                        <!-- Defense -->
+                        <div class="mb-1 text-sm font-medium text-green-700 dark:text-green-500">Defense</div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700 flex items-center">
+                            <div class="text-center text-blue-100 text-[10px] bg-green-600 h-3 rounded-full dark:bg-green-500"
+                                [style.width.%]="((pokemonView?.stats?.defense ?? 0) / 250) * 100"
+                            > 
+                                {{ pokemonView?.stats?.defense }} 
+                            </div>
+                        </div>
+                        
+                        <!-- Sp Attack -->
+                        <div class="mb-1 text-sm font-medium text-yellow-700 dark:text-yellow-500">Sp Attack</div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700 flex items-center">
+                            <div class="text-center text-blue-100 text-[10px]  bg-yellow-400 h-3 rounded-full" 
+                                [style.width.%]="((pokemonView?.stats?.sp_attack ?? 0) / 250) * 100"
+                            > 
+                                {{ pokemonView?.stats?.sp_attack }} 
+                            </div>
+                        </div>
+                        <!-- Sp defense -->
+                        <div class="mb-1 text-sm font-medium text-indigo-700 dark:text-indigo-500">Sp defense</div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700 flex items-center">
+                            <div class="text-center text-blue-100 text-[10px]  bg-indigo-600 h-3 rounded-full dark:bg-indigo-500" style="width: 45%"
+                                [style.width.%]="((pokemonView?.stats?.sp_defense ?? 0) / 250) * 100"
+                            > 
+                                {{ pokemonView?.stats?.sp_defense }} 
+                            </div>
+                        </div>
+                        <!-- Speed -->
+                        <div class="mb-1 text-sm  font-medium text-purple-700 dark:text-purple-500">Speed</div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700 flex items-center">
+                            <div class="text-center text-blue-100 text-[10px]  bg-purple-600 h-3 rounded-full dark:bg-purple-500 " style="width: 45%"
+                                [style.width.%]="((pokemonView?.stats?.speed ?? 0) / 250) * 100"
+                            > 
+                                {{ pokemonView?.stats?.speed }} 
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

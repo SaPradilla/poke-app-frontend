@@ -3,18 +3,20 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-pokemon',
   templateUrl: './pokemon.component.html',
-  styleUrls: ['./pokemon.component.css']
 })
 export class PokemonComponent {
 
-  showModal:boolean = false;
+  showModalAddPokemon:boolean = false;
+  showModalPokemon:boolean = false;
 
   // Modal
-  openModal():void{
-    this.showModal = true;
+
+  toggleModalAddPokemon():void{
+    this.showModalAddPokemon = !this.showModalAddPokemon;
   }
-  closeModal():void{
-    this.showModal = false;
+  toggleModalPokemon():void{
+    this.showModalPokemon = !this.showModalPokemon;
   }
+
 
 }

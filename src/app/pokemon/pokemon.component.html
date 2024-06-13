@@ -1,11 +1,11 @@
 <!-- Modals -->
 
-<!-- <app-modal-details/> -->
-<app-modal-add *ngIf="showModal" (close)="closeModal()" />
+<app-modal-details *ngIf="showModalPokemon" (toggle)="toggleModalPokemon()"  />
+<app-modal-add *ngIf="showModalAddPokemon" (close)="toggleModalAddPokemon()" />
 
-<app-header (open)="openModal()"/>
+<app-header (open)="toggleModalAddPokemon()"/>
 
-<section class=" bg-slate-50">
-    <app-list/>
+<section class=" bg-slate-50 h-full">
+    <app-list (toggle)="toggleModalPokemon()"  />
 </section>
     

@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment.development';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
 })
 export class FormComponent {
 

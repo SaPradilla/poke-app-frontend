@@ -10,3 +10,12 @@ body { margin: 0; padding: 0; }
 .mat-mdc-form-field .mdc-notched-outline__notch {
     border-right: 0px !important;
 }
+
+
+div.content_modal{
+    
+    
+    padding: 16px 8px  ;
+
+
+}

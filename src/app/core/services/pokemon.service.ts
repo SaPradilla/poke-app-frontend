@@ -14,9 +14,19 @@ export class PokemonService {
   private searchResultsSubject = new Subject<Pokemon[]>();
   private getAllResultsSubject = new Subject<Pokemon[]>();
 
+  pokemonSelected:Pokemon | null = null;
+
   constructor(
     private http:HttpClient
     ) {}
+
+
+  setPokemonSelected(pokemon:Pokemon){
+    this.pokemonSelected = pokemon;
+  }
+  clearPokemonSelected(){
+    this.pokemonSelected = null;
+  }
 
   getPokemons():Observable<ResponsePokemons> {
     return this.http.get<ResponsePokemons>(`${environment.BASE_URL}/pokemons`).pipe(
@@ -35,7 +45,6 @@ export class PokemonService {
       })
     )
   }
-  
   getPokemonAddedObservable(): Observable<void> {
     return this.pokemonAddedSubject.asObservable();
   }
@@ -45,14 +54,16 @@ export class PokemonService {
   getAllResultsObservable(): Observable<Pokemon[]> {
     return this.getAllResultsSubject.asObservable();
   }
-
   searchPokemons(field: string, value: string): Observable<any> {
+    console.log({field,value});
+
     let params = new HttpParams().set(field, value);
+    console.log(params);
+
     return this.http.get<any>(`${environment.BASE_URL}/pokemons/search`, { params }).pipe(
       tap((response: any) => {
         this.searchResultsSubject.next(response.pokemons);
       })
     );
   }
-
 }

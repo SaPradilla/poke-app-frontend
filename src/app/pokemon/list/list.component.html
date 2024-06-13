@@ -2,17 +2,33 @@
 <div class=" flex flex-col justify-center items-center">
     
     <h2 class=" pb-11 text-center text-2xl font-semibold">Pokemons</h2>
+   
 
     <!-- Card Pokemons -->
-    <div class=" w-fit grid place-items-center grid-cols-2 gap-4 ">
-        <ng-container *ngIf="pokemonsList$ | async as pokemons" >
-            <app-card class=" w-fit flex items-center justify-center " *ngFor="let pokemon of pokemons  " [pokemon]="pokemon"/>
+    <div class=" w-fit grid place-items-center grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+
+        <ng-container *ngIf="pokemonsList$ | async as pokemons; else skeleton "  >
+
+            <app-card (toggle)="toggleModal()" class=" w-fit flex items-center justify-center " *ngFor="let pokemon of pokemons  " [pokemon]="pokemon"/>
+
         </ng-container>
+
+        <ng-template  #skeleton>
+            <ng-container *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8]">
+                <app-skeleton></app-skeleton>
+            </ng-container>
+        </ng-template>
+        
         <div *ngIf="errorMsg" class="error">
             {{ errorMsg }}
-          </div>
+        </div>
+
+    </div>
+    <div *ngIf="(pokemonsList$ | async)?.length === 0;" class="flex flex-col gap-2 justify-center items-center">
+        <p class=" text-center font-bold text-amber-400">Pokemons no found</p>
+        <img class=" w-20 h-20 " src="assets/404.png" alt="404_image">
     </div>
 
-    <!-- Paginacion -->
+    <!-- TODO: hacer Paginacion -->
     <!-- boton de cargas mas -->
 </div>

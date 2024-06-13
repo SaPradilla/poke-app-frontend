@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable, catchError,EMPTY,map } from 'rxjs';
 import { Pokemon, ResponsePokemons } from 'src/app/core/models';
 import { PokemonService } from 'src/app/core/services/pokemon.service';
 
 @Component({
   selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  templateUrl: './list.component.html'
 })
 export class ListComponent {
+  
+  @Output() toggle = new EventEmitter<void>();
+
 
   public pokemonsList$!: Observable<Pokemon[]>;
   public errorMsg!:string;
-
 
   constructor(
     private service:PokemonService
@@ -23,6 +24,7 @@ export class ListComponent {
     this.loadPokemons();
 
     this.service.getAllResultsObservable().subscribe((pokemons: Pokemon[])=>{
+
       this.pokemonsList$ = new Observable((observer) => {
         observer.next(pokemons);
         observer.complete();
@@ -39,6 +41,10 @@ export class ListComponent {
         observer.complete();
       });
     });
+  }
+
+  toggleModal(){
+    this.toggle.emit();
   }
 
   loadPokemons(): void {

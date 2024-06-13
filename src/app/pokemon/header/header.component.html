@@ -5,15 +5,15 @@
         PokeApp
     </h1>
 
-
-
     <!-- Acciones -->
     <div class=" container-btns flex align-center justify-center flex-col pr-4 pl-4">
 
-        <div class=" flex gap-1 justify-center ">
-            <form [formGroup]="filterForm"> 
+        <div class=" flex g justify-center  items-center">
+
+            <form class=" flex gap-2" [formGroup]="filterForm">
+
                 <!-- Buscar  -->
-                <mat-form-field class=" " appearance="outline">
+                <mat-form-field class=" md:w-96  " appearance="outline">
                     <mat-label>Search pokemon</mat-label>
                     <input  formControlName="value" matInput>
                     <mat-icon matPrefix>search</mat-icon>

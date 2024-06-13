@@ -1,7 +1,8 @@
-<div class=" w-40 h-44  rounded-lg border-solid border-gray-500 border-[0.2px]  bg-gray-200 cursor-pointer hover:translate-y-[-5px] transition-all ">
+<div (click)="viewPokemon()"
+    class=" w-40 h-44  rounded-lg border-solid border-gray-500 border-[0.2px]  bg-gray-200 cursor-pointer hover:translate-y-[-5px] transition-all ">
 
     <div class=" flex justify-center  flex-col  bg-slate-50 rounded-tl-lg rounded-tr-lg ">
-        
+
         <div class="relative ">
             <!-- Imagen -->
             <div class=" flex justify-center">
@@ -9,12 +10,24 @@
             </div>
             <!-- Tipo -->
             <div class=" left-[10px] flex justify-start space-x-1 absolute bottom-0 ">
-                <img class="w-7 h-7" src="../../../assets/icons/fire.png" alt="Fire Icon" />
-                <img class="w-7 h-7" src="../../../assets/icons/fire.png" alt="Fire Icon" />
-                <img class="w-7 h-7" src="../../../assets/icons/fire.png" alt="Fire Icon" />
+
+                <mat-chip-set>
+
+                    <ng-container *ngFor="let type of pokemon.types; let i = index">
+                        <mat-chip *ngIf="i < 2" class="text-[.5rem] font-semibold" cdkDrag>
+                            {{ type }}
+                        </mat-chip>
+                        <!-- Si hay mas ddos -->
+                        <mat-chip *ngIf="i === 2" class="text-[.5rem] font-semibold" cdkDrag>
+                            ...
+                        </mat-chip>
+                    </ng-container>
+                </mat-chip-set>
+
             </div>
         </div>
     </div>
+
     <!-- Info pokemon -->
     <div class=" text-center">
         <p class=" text-2xl font-semibold"> {{ pokemon.name }}</p>
@@ -22,4 +35,3 @@
     </div>
 
 </div>
-

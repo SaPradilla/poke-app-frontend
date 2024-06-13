@@ -3,3 +3,4 @@ export const pokemonTypes:string[] = [
     "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost",
     "Dragon", "Dark", "Steel", "Fairy"
 ];
+
